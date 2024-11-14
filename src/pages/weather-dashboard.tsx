@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 
 const WeatherDashboard = () => {
+    
     return (
         <div className="space-y-4">
             {/* <FavoriteCities /> */}
