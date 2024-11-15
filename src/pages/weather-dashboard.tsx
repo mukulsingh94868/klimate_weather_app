@@ -2,15 +2,26 @@ import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useGeolocation } from "@/hooks/use-geolocation";
-import { AlertCircle, AlertTriangle, MapPin, RefreshCw } from "lucide-react";
+import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/use-weather";
+import { AlertTriangle, MapPin, RefreshCw } from "lucide-react";
 
 const WeatherDashboard = () => {
     const { coordinates, error: locationError, getLocation, isLoading: locationLoading } = useGeolocation();
 
+    const weatherQuery = useWeatherQuery(coordinates);
+    const forecastQuery = useForecastQuery(coordinates);
+    const locationQuery = useReverseGeocodeQuery(coordinates);
+
+    console.log('weatherQuery', weatherQuery);
+    // console.log('forecastQuery', forecastQuery);
+    // console.log('locationQuery', locationQuery);
+
     const handleRefresh = () => {
         getLocation();
         if (coordinates) {
-            // reload weather data
+            weatherQuery.refetch();
+            forecastQuery.refetch();
+            locationQuery.refetch();
         }
     };
 
