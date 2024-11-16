@@ -13,8 +13,8 @@ const WeatherDashboard = () => {
     const locationQuery = useReverseGeocodeQuery(coordinates);
 
     console.log('weatherQuery', weatherQuery);
-    // console.log('forecastQuery', forecastQuery);
-    // console.log('locationQuery', locationQuery);
+    console.log('forecastQuery', forecastQuery);
+    console.log('locationQuery', locationQuery);
 
     const handleRefresh = () => {
         getLocation();
