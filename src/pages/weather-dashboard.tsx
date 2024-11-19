@@ -25,7 +25,6 @@ const WeatherDashboard = () => {
         }
     };
 
-
     if (locationLoading) {
         <WeatherSkeleton />
     };
