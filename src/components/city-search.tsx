@@ -15,7 +15,7 @@ const CitySearch = () => {
     // const { favorites } = useFavorites();
     // const { history, clearHistory, addToHistory } = useSearchHistory();
 
-    console.log('locations', locations);
+    // console.log('locations', locations);
 
     const handleSelect = (cityData: string) => {
         const [lat, lon, name, country] = cityData.split("|");
