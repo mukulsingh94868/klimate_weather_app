@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocationSearch } from "@/hooks/use-weather";
+import { useSearchHistory } from "@/hooks/use-search-history";
 
 const CitySearch = () => {
     const [open, setOpen] = useState(false);
@@ -13,21 +14,19 @@ const CitySearch = () => {
 
     const { data: locations, isLoading } = useLocationSearch(query);
     // const { favorites } = useFavorites();
-    // const { history, clearHistory, addToHistory } = useSearchHistory();
-
-    // console.log('locations', locations);
+    const { history, clearHistory, addToHistory } = useSearchHistory();
 
     const handleSelect = (cityData: string) => {
         const [lat, lon, name, country] = cityData.split("|");
 
         // Add to search history
-        // addToHistory.mutate({
-        //     query,
-        //     name,
-        //     lat: parseFloat(lat),
-        //     lon: parseFloat(lon),
-        //     country,
-        // });
+        addToHistory.mutate({
+            query,
+            name,
+            lat: parseFloat(lat),
+            lon: parseFloat(lon),
+            country,
+        });
 
         setOpen(false);
         navigate(`/city/${name}?lat=${lat}&lon=${lon}`);
@@ -90,13 +89,13 @@ const CitySearch = () => {
                                         <Button
                                             variant="ghost"
                                             size="sm"
-                                            // onClick={() => clearHistory.mutate()}
+                                            onClick={() => clearHistory.mutate()}
                                         >
                                             <XCircle className="h-4 w-4" />
                                             Clear
                                         </Button>
                                     </div>
-                                    {/* {history.map((item) => (
+                                    {history.map((item) => (
                                         <CommandItem
                                             key={item.id}
                                             value={`${item.lat}|${item.lon}|${item.name}|${item.country}`}
@@ -116,7 +115,7 @@ const CitySearch = () => {
                                                 {format(item.searchedAt, "MMM d, h:mm a")}
                                             </span>
                                         </CommandItem>
-                                    ))} */}
+                                    ))}
                                 </CommandGroup>
                             </>
                         )}
